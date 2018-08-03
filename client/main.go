@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/0xef53/gorilla-rpc-example/common"
 )
@@ -65,14 +66,18 @@ func main() {
 
 	addr := os.Args[1]
 
+	start1 := time.Now()
 	if err := DoViaHttp2(addr); err != nil {
 		fmt.Println("DoViaHttp2() error:", err)
 	}
+	fmt.Println("Elapsed:", time.Since(start1))
 
 	fmt.Printf("\n\n")
 
+	start2 := time.Now()
 	if err := DoViaUnixSocket(addr); err != nil {
 		fmt.Println("DoViaHttp2() error:", err)
 	}
+	fmt.Println("Elapsed:", time.Since(start2))
 
 }

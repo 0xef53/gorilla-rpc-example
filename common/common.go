@@ -48,5 +48,6 @@ func TlsConfig(certFile, keyFile string) (*tls.Config, error) {
 		MinVersion:               tls.VersionTLS12,
 		PreferServerCipherSuites: true,
 		ClientSessionCache:       tls.NewLRUClientSessionCache(0),
+		NextProtos:               []string{"h2", "http/1.1"},
 	}, nil
 }

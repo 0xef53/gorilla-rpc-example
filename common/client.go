@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"runtime"
 
-	//"golang.org/x/net/http2"
+	"golang.org/x/net/http2"
 
 	jsonrpc "github.com/gorilla/rpc/v2/json2"
 )
@@ -24,6 +24,9 @@ func NewTlsClient(addr, endpoint, certFile, keyFile string) (*TlsClient, error) 
 	}
 
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
+	if err := http2.ConfigureTransport(transport); err != nil {
+		return nil, err
+	}
 
 	c := TlsClient{
 		client:   &http.Client{Transport: transport},
